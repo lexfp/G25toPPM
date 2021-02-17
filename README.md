@@ -27,15 +27,21 @@ With the module lights and dials facing you and the antenna facing up, you will 
 
 ## Configuration
 The only things that are being used by default are the gas & break pedal along with the steering wheel and shifter. The break pedal works similar to pushing up on the throttle in pistol style transmitter (as both a break and reverse). The gas and break both map to the throttle channel similar to a real transmitter. The values you will most likely need to modify in the code are (in BtnPPMMap.h):  
-####NUM_CHANNELS - number of channels on your RX.   
-The code can also accept input from the shifter (only up and downshift though, not the gears), but doesn't use that functionality at the moment. 
-####PPM_THROTTLE_NEUTRAL - this is the value of the neutral point for your ESC. You can recalibrate using the pedals, of course and leave it close to either 1500 or 1300 depending on your transmitter.     
-####XXX_GEAR_LIMIT - the gears are used as a sort of throttle limit. Each gear will limit the max throttle to the desired range (up to 2000). If you don't have a shifter, just set the FIRST_GEAR_LIMIT value to the desired throttle cap you wish to use (2000 if you don't want a cap). Since I drive indoors, the throttle cap is useful so I can use the entire gas pedal instead of the first fraction for normal driving. If you want more gears than the predefined four, you can add them easily.
+
+NUM_CHANNELS - number of channels on your RX.   
+The code can also accept input from the shifter (only up and downshift though, not the gears), but doesn't use that functionality at the moment.  
+
+PPM_THROTTLE_NEUTRAL - this is the value of the neutral point for your ESC. You can recalibrate using the pedals, of course and leave it close to either 1500 or 1300 depending on your transmitter.     
+
+XXX_GEAR_LIMIT - the gears are used as a sort of throttle limit. Each gear will limit the max throttle to the desired range (up to 2000). If you don't have a shifter, just set the FIRST_GEAR_LIMIT value to the desired throttle cap you wish to use (2000 if you don't want a cap). Since I drive indoors, the throttle cap is useful so I can use the entire gas pedal instead of the first fraction for normal driving. If you want more gears than the predefined four, you can add them easily.
 
 ## Transmitter Modules
 The modules linked below should work, but in general, if you can operate the module in opentx with PPM mode, it should work. I tested with the module in the first link and also the crossfire module.  
+
 https://www.team-blacksheep.com/products/prod:crossfire_micro_tx  
+
 https://www.banggood.com/2_4G-CC2500-NRF24L01-A7105-CTRF6936-4-IN-1-Multi-protocol-STM32-TX-Module-With-Antenna-p-1153902.html?p=Y506095296511201607R&custlinkid=1443521  
+
 https://www.banggood.com/IRangeX-IRX4-Plus-2_4G-CC2500-NRF24L01-A7105-CYRF6936-4-IN-1-Multiprotocol-STM32-TX-Module-With-Case-p-1225080.html?p=Y506095296511201607R&custlinkid=1443522  
 
 ## Inspired by
