@@ -1,6 +1,8 @@
 # Logitech G25 wheel to PPM
 Instead of just using your old G25 to play games, now you can pair it with an arduino usb shield and transmitter to use it to drive any RC car. This is not well tested software, so use at your own risk. Please use your common sense and do not use this in a way that can potentially cause injuries to others. 
 
+![alt text](https://github.com/lexfp/G25toPPM/blob/master/overview.jpg?raw=true)
+
 https://youtu.be/leFdxP0LLkY  
  
 ## License
