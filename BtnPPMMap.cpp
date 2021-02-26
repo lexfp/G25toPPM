@@ -49,7 +49,13 @@ void BtnPPMMap::mapShift(long value){
 }
 
 void BtnPPMMap::mapSteer(long value){
-  mapChannelValue(false, CH_STEERING, value, 0, 1024, WHEEL_LEFT_TURN_LIMIT, WHEEL_RIGHT_TURN_LIMIT);
+  if (value < WHEEL_CENTER_INPUT) {
+    //turning left
+    mapChannelValue(false, CH_STEERING, value, WHEEL_MIN_INPUT, WHEEL_CENTER_INPUT, WHEEL_LEFT_TURN_LIMIT, WHEEL_CENTER);
+  } else {
+    //turning right
+    mapChannelValue(false, CH_STEERING, value, WHEEL_CENTER_INPUT, WHEEL_MAX_INPUT, WHEEL_CENTER, WHEEL_RIGHT_TURN_LIMIT);
+  }
 }
 
 void BtnPPMMap::mapGasValue(uint32_t value) {

@@ -19,6 +19,9 @@ class BtnPPMMap
 
   private:
     //please note that these values below can be different if the wheel is not plugged into AC, so please plug in your wheel if fine tuning values below
+    static const int WHEEL_MIN_INPUT = 0;
+    static const int WHEEL_MAX_INPUT = 1024;
+    static const int WHEEL_CENTER_INPUT = 512;
     static const uint32_t MAX_BREAK_INPUT = 16754943; //value in decimal (evt->gas) when I step on the break
     static const uint32_t NEUTRAL_GAS_INPUT = 4294944895; //value in decimal (evt->gas) when I don't step on any pedal
     static const uint32_t MAX_GAS_INPUT = 4278233088; //value in decimal (evt->gas) when I step on the gas
@@ -48,6 +51,7 @@ class BtnPPMMap
     static const int NUM_CHANNELS = 6; //set this to however many channels your rx supports
     static const int PPM_THROTTLE_NEUTRAL = 1500; //50/50 (1500) or 70/30 (1300)
     static const int WHEEL_LEFT_TURN_LIMIT = PPM_MIN_VALUE; //set the turn limits to avoid stressing your servos
+    static const int WHEEL_CENTER = PPM_CENTER_VALUE; //this is the steering center trim value
     static const int WHEEL_RIGHT_TURN_LIMIT = PPM_MAX_VALUE;
     static const int NUM_GEARS = 4; //set this to however many gears you want
     //assuming you have a 50/50 throttle, the values go from 1500 - 2000
@@ -61,11 +65,13 @@ class BtnPPMMap
     static const int NUM_CHANNELS = 8;
     static const int PPM_THROTTLE_NEUTRAL = 1475; 
     static const int WHEEL_LEFT_TURN_LIMIT = 1100;
+    static const int WHEEL_CENTER = 1390;
     static const int WHEEL_RIGHT_TURN_LIMIT = 1800;
-    static const int NUM_GEARS = 2;
-    static const int FIRST_GEAR_LIMIT = 1700; 
-    static const int SECOND_GEAR_LIMIT = PPM_MAX_VALUE; 
-    int GEAR_LIMIT[NUM_GEARS] = {FIRST_GEAR_LIMIT,SECOND_GEAR_LIMIT};
+    static const int NUM_GEARS = 3;
+    static const int FIRST_GEAR_LIMIT = 1550; 
+    static const int SECOND_GEAR_LIMIT = 1750; 
+    static const int THIRD_GEAR_LIMIT = PPM_MAX_VALUE; //this is the throttle limit for third gear
+    int GEAR_LIMIT[NUM_GEARS] = {FIRST_GEAR_LIMIT,SECOND_GEAR_LIMIT,THIRD_GEAR_LIMIT};
 #endif
 
     unsigned long lastShiftUpMillis;

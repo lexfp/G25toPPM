@@ -35,6 +35,8 @@ The code can also accept input from the shifter (only up and downshift though, n
 
 WHEEL_LEFT/RIGHT_TURN_LIMIT - On some cars, the servos can turn further than the wheels can, which can cause them to wear out faster. You can adjust these values here. Values are actual PPM values being sent to the receiver (1000-2000).
 
+WHEEL_CENTER - this is for trimming the center of your steering. Values are PPM values with 1500 being the default.
+
 PPM_THROTTLE_NEUTRAL - this is the value of the neutral point for your ESC. You can recalibrate using the pedals, of course and leave it close to either 1500 or 1300 depending on your transmitter.     
 
 XXX_GEAR_LIMIT - the gears are used as a sort of throttle limit. Each gear will limit the max throttle to the desired range (up to 2000). If you don't have a shifter, just set the FIRST_GEAR_LIMIT value to the desired throttle cap you wish to use (2000 if you don't want a cap). Since I drive indoors, the throttle cap is useful so I can use the entire gas pedal instead of the first fraction for normal driving. If you want more gears than the predefined four, you can add them easily.
