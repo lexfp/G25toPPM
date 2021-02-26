@@ -8,9 +8,6 @@ class BtnPPMMap
 {
   public:
     BtnPPMMap();
-    
-    static const int NUM_CHANNELS = 6; //set this to however many channels your rx supports
-
     void mapGas(uint32_t value);
     void mapShift(long value);
     void mapSteer(long value);
@@ -18,6 +15,7 @@ class BtnPPMMap
     void debug();
     void failsafe();
     void disArm();
+    int getNumChannels();
 
   private:
     //please note that these values below can be different if the wheel is not plugged into AC, so please plug in your wheel if fine tuning values below
@@ -41,18 +39,35 @@ class BtnPPMMap
     static const int PPM_MIN_VALUE = 1000;
     static const int PPM_CENTER_VALUE = ((PPM_MAX_VALUE - PPM_MIN_VALUE) / 2) + PPM_MIN_VALUE;
     static const int PPM_FAIL_SAFE_VALUE = 950;
-    //this following is the throttle arm value for your esc
-    static const int PPM_THROTTLE_NEUTRAL = 1470; //50/50 (1500) or 70/30 (1300)
     int PPM_THROTTLE_MAX; 
 
-    //Feel free to change the settings below for the type of feel that you want in your car
+#define CAR_MICRO_T //change the CAR_DEFAULT values or add another one here for your own needs   
+
+//Feel free to change the settings below for the type of feel that you want in your car
+#ifdef CAR_DEFAULT
+    static const int NUM_CHANNELS = 6; //set this to however many channels your rx supports
+    static const int PPM_THROTTLE_NEUTRAL = 1500; //50/50 (1500) or 70/30 (1300)
+    static const int WHEEL_LEFT_TURN_LIMIT = PPM_MIN_VALUE; //set the turn limits to avoid stressing your servos
+    static const int WHEEL_RIGHT_TURN_LIMIT = PPM_MAX_VALUE;
     static const int NUM_GEARS = 4; //set this to however many gears you want
+    //assuming you have a 50/50 throttle, the values go from 1500 - 2000
     static const int FIRST_GEAR_LIMIT = 1550; //this is the throttle limit for first gear
     static const int SECOND_GEAR_LIMIT = 1650; //this is the throttle limit for second gear
     static const int THIRD_GEAR_LIMIT = 1750; //this is the throttle limit for third gear
     static const int FOURTH_GEAR_LIMIT = PPM_MAX_VALUE; //this is the throttle limit for fourth gear
     int GEAR_LIMIT[NUM_GEARS] = {FIRST_GEAR_LIMIT,SECOND_GEAR_LIMIT,THIRD_GEAR_LIMIT,FOURTH_GEAR_LIMIT};
-    
+#endif
+#ifdef CAR_MICRO_T  //the following are an example of my own personal values for my car
+    static const int NUM_CHANNELS = 8;
+    static const int PPM_THROTTLE_NEUTRAL = 1475; 
+    static const int WHEEL_LEFT_TURN_LIMIT = 1100;
+    static const int WHEEL_RIGHT_TURN_LIMIT = 1800;
+    static const int NUM_GEARS = 2;
+    static const int FIRST_GEAR_LIMIT = 1700; 
+    static const int SECOND_GEAR_LIMIT = PPM_MAX_VALUE; 
+    int GEAR_LIMIT[NUM_GEARS] = {FIRST_GEAR_LIMIT,SECOND_GEAR_LIMIT};
+#endif
+
     unsigned long lastShiftUpMillis;
     unsigned long lastShiftDownMillis;
     

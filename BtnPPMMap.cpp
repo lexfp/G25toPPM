@@ -20,6 +20,9 @@ BtnPPMMap::BtnPPMMap()
   channel[CH_8] = PPM_FAIL_SAFE_VALUE;
 }
 
+int BtnPPMMap::getNumChannels() {
+  return NUM_CHANNELS;  
+}
 
 int BtnPPMMap::getChannelValue(int c) {
   return channel[c];
@@ -46,7 +49,7 @@ void BtnPPMMap::mapShift(long value){
 }
 
 void BtnPPMMap::mapSteer(long value){
-  mapChannelValue(false, CH_STEERING, value, 0, 1024, PPM_MIN_VALUE, PPM_MAX_VALUE);
+  mapChannelValue(false, CH_STEERING, value, 0, 1024, WHEEL_LEFT_TURN_LIMIT, WHEEL_RIGHT_TURN_LIMIT);
 }
 
 void BtnPPMMap::mapGasValue(uint32_t value) {

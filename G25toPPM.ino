@@ -164,7 +164,7 @@ ISR(TIMER1_COMPA_vect) { //leave this alone
     digitalWrite(sigPin, !onState);
     state = true;
 
-    if (cur_chan_numb >= BtnPPMMap::NUM_CHANNELS) {
+    if (cur_chan_numb >= btnPPMMap.getNumChannels()) {
       cur_chan_numb = 0;
       calc_rest = calc_rest + PULSE_LENGTH;//
       OCR1A = (FRAME_LENGTH - calc_rest) * 2;
