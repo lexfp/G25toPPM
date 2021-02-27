@@ -44,7 +44,7 @@ class BtnPPMMap
     static const int PPM_FAIL_SAFE_VALUE = 950;
     int PPM_THROTTLE_MAX; 
 
-#define CAR_MICRO_T //change the CAR_DEFAULT values or add another one here for your own needs   
+#define CAR_MICRO_TRUGGY //change the CAR_DEFAULT values or add another one here for your own needs   
 
 //Feel free to change the settings below for the type of feel that you want in your car
 #ifdef CAR_DEFAULT
@@ -61,7 +61,20 @@ class BtnPPMMap
     static const int FOURTH_GEAR_LIMIT = PPM_MAX_VALUE; //this is the throttle limit for fourth gear
     int GEAR_LIMIT[NUM_GEARS] = {FIRST_GEAR_LIMIT,SECOND_GEAR_LIMIT,THIRD_GEAR_LIMIT,FOURTH_GEAR_LIMIT};
 #endif
-#ifdef CAR_MICRO_T  //the following are an example of my own personal values for my car
+#ifdef CAR_MICRO_TRUGGY  //the following are examples values for my different cars
+    static const int NUM_CHANNELS = 6;
+    static const int PPM_THROTTLE_NEUTRAL = 1470; 
+    static const int WHEEL_LEFT_TURN_LIMIT = 1080;
+    static const int WHEEL_CENTER = 1500;
+    static const int WHEEL_RIGHT_TURN_LIMIT = 1920; 
+    static const int NUM_GEARS = 4;
+    static const int FIRST_GEAR_LIMIT = 1550; 
+    static const int SECOND_GEAR_LIMIT = 1650;
+    static const int THIRD_GEAR_LIMIT = 1750; 
+    static const int FOURTH_GEAR_LIMIT = PPM_MAX_VALUE;
+    int GEAR_LIMIT[NUM_GEARS] = {FIRST_GEAR_LIMIT,SECOND_GEAR_LIMIT,THIRD_GEAR_LIMIT,FOURTH_GEAR_LIMIT};
+#endif
+#ifdef CAR_MICRO_T 
     static const int NUM_CHANNELS = 8;
     static const int PPM_THROTTLE_NEUTRAL = 1475; 
     static const int WHEEL_LEFT_TURN_LIMIT = 1100;
