@@ -39,7 +39,7 @@ WHEEL_CENTER - this is for trimming the center of your steering. Values are PPM 
 
 PPM_THROTTLE_NEUTRAL - this is the value of the neutral point for your ESC. You can recalibrate using the pedals, of course and leave it close to either 1500 or 1300 depending on your transmitter.     
 
-GEAR_FORWARD & REVERSE_LIMITs - the gears are used as a sort of throttle limit. Each gear will limit the max throttle to the desired range. If you don't have a shifter, just set the FIRST_GEAR_LIMIT value to the desired throttle cap you wish to use (100 if you don't want a cap). The value is in percentages. 5 would be 5%, 10 is 10%, 100 is 100% etc... When in first gear, then the limits for first gear would apply for both throttle and reverse. You do not have to shift to first gear before going into reverse since the break always works as a reverse pedal as well.
+GEAR_FORWARD & REVERSE_LIMITs - the gears are used as a sort of throttle limit. Each gear will limit the max throttle to the desired range. If you don't have a shifter, just set the all the limit values to the desired throttle cap you wish to use (100 if you don't want a cap). The values are in percentages. 5 would be 5%, 10 is 10%, 100 is 100% etc... When in first gear, then the limits for first gear would apply for both throttle and reverse. You do not have to shift to first gear before going into reverse since the break always works as a reverse pedal as well.
 
 ## Transmitter Modules
 The modules linked below should work, but in general, if you can operate the module in opentx with PPM mode, it should work. I tested with the module in the first link and also the crossfire module.  
