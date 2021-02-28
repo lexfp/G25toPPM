@@ -9,11 +9,12 @@ BtnPPMMap::BtnPPMMap()
   currentGear = 0;
   lastShiftUpMillis = millis();
   lastShiftDownMillis = millis();
-  PPM_THROTTLE_MAX = FIRST_GEAR_LIMIT;
+  PPM_THROTTLE_MAX = GEAR_FORWARD_LIMIT[0];
+  PPM_REVERSE_MAX = GEAR_REVERSE_LIMIT[0];
   channel[CH_THROTTLE] = PPM_THROTTLE_NEUTRAL;
-  channel[CH_STEERING] = PPM_CENTER_VALUE;
-  channel[CH_SHIFTER] = FIRST_GEAR_LIMIT;
-  channel[CH_4] = PPM_CENTER_VALUE;
+  channel[CH_STEERING] = WHEEL_CENTER;
+  channel[CH_SHIFTER] = GEAR_FORWARD_LIMIT[0];
+  channel[CH_4] = PPM_FAIL_SAFE_VALUE;
   channel[CH_5] = PPM_FAIL_SAFE_VALUE;
   channel[CH_6] = PPM_FAIL_SAFE_VALUE;
   channel[CH_7] = PPM_FAIL_SAFE_VALUE;
@@ -63,7 +64,7 @@ void BtnPPMMap::mapGasValue(uint32_t value) {
 }
 
 void BtnPPMMap::mapBreakValue(uint32_t value) {
-  mapChannelValue(false, CH_THROTTLE, value, MAX_BREAK_INPUT, NEUTRAL_GAS_INPUT, PPM_MIN_VALUE, PPM_THROTTLE_NEUTRAL);
+  mapChannelValue(false, CH_THROTTLE, value, MAX_BREAK_INPUT, NEUTRAL_GAS_INPUT, PPM_REVERSE_MAX, PPM_THROTTLE_NEUTRAL);
 }
 
 void BtnPPMMap::mapChannelValue(boolean invert, int c, uint32_t value, uint32_t minValue, uint32_t maxValue, int ppmMin, int ppmMax) {
@@ -94,7 +95,8 @@ void BtnPPMMap::shiftUp() {
     if (currentGear < NUM_GEARS-1) {
       currentGear++;
     }
-    PPM_THROTTLE_MAX = GEAR_LIMIT[currentGear];
+    PPM_THROTTLE_MAX = GEAR_FORWARD_LIMIT[currentGear];
+    PPM_REVERSE_MAX = GEAR_REVERSE_LIMIT[currentGear];
     lastShiftUpMillis = millis();
   }
 }
@@ -104,7 +106,8 @@ void BtnPPMMap::shiftDown() {
     if (currentGear > 0) {
       currentGear--;
     }
-    PPM_THROTTLE_MAX = GEAR_LIMIT[currentGear];
+    PPM_THROTTLE_MAX = GEAR_FORWARD_LIMIT[currentGear];
+    PPM_REVERSE_MAX = GEAR_REVERSE_LIMIT[currentGear];
     lastShiftDownMillis = millis();
   }
 }
@@ -115,7 +118,19 @@ void BtnPPMMap::debug()
   Serial.print(channel[CH_THROTTLE]);
   Serial.print(" W:");
   Serial.print(channel[CH_STEERING]);
-  Serial.print(" S:");
+  Serial.print(" FM:");
   Serial.print(PPM_THROTTLE_MAX);
+  Serial.print(" RM:");
+  Serial.print(PPM_REVERSE_MAX);
+  
+  Serial.print(" -a:");
+  Serial.print(GEAR_REVERSE_LIMIT[0]);
+  Serial.print(" -b:");
+  Serial.print(GEAR_REVERSE_LIMIT[1]);
+  Serial.print(" -c:");
+  Serial.print(GEAR_REVERSE_LIMIT[2]);
+  Serial.print(" -d:");
+  Serial.print(GEAR_REVERSE_LIMIT[3]);
+  
   Serial.println("");
 }

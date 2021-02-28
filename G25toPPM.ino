@@ -113,6 +113,7 @@ void setup()
   while (!Serial); // Wait for serial port to connect - used on Leonardo, Teensy and other boards with built-in USB CDC serial connection
 #endif
   Serial.println("Start");
+  btnPPMMap.debug();
 
   if (Usb.Init() == -1)
     Serial.println("OSC did not start.");
