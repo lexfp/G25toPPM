@@ -52,6 +52,7 @@ class BtnPPMMap
 #ifdef CAR_DEFAULT
     static const int NUM_CHANNELS = 6; //set this to however many channels your rx supports
     static const int PPM_THROTTLE_NEUTRAL = 1500; //50/50 (1500) or 70/30 (1300)
+    static const bool WHEEL_REVERSE_STEERING = false;
     static const int WHEEL_LEFT_TURN_LIMIT = PPM_MIN_VALUE; //set the turn limits to avoid stressing your servos
     static const int WHEEL_CENTER = PPM_CENTER_VALUE; //this is the steering center trim value
     static const int WHEEL_RIGHT_TURN_LIMIT = PPM_MAX_VALUE;
@@ -64,9 +65,42 @@ class BtnPPMMap
     static const int THIRD_GEAR_REVERSE_LIMIT_PERCENT = 70; 
     static const int FOURTH_GEAR_REVERSE_LIMIT_PERCENT = 100;
 #endif
+#ifdef CAR_MICRO_T 
+    static const int NUM_CHANNELS = 6;
+    static const int PPM_THROTTLE_NEUTRAL = 1450; 
+    static const bool WHEEL_REVERSE_STEERING = false;
+    static const int WHEEL_LEFT_TURN_LIMIT = 1100;
+    static const int WHEEL_CENTER = 1435;
+    static const int WHEEL_RIGHT_TURN_LIMIT = 1800; 
+    static const int FIRST_GEAR_FORWARD_LIMIT_PERCENT = 18; 
+    static const int SECOND_GEAR_FORWARD_LIMIT_PERCENT = 40;
+    static const int THIRD_GEAR_FORWARD_LIMIT_PERCENT = 75; 
+    static const int FOURTH_GEAR_FORWARD_LIMIT_PERCENT = 100;
+    static const int FIRST_GEAR_REVERSE_LIMIT_PERCENT = 30; 
+    static const int SECOND_GEAR_REVERSE_LIMIT_PERCENT = 40;
+    static const int THIRD_GEAR_REVERSE_LIMIT_PERCENT = 70; 
+    static const int FOURTH_GEAR_REVERSE_LIMIT_PERCENT = 100;
+#endif
+#ifdef CAR_MINI_Q5 
+    static const int NUM_CHANNELS = 6;
+    static const int PPM_THROTTLE_NEUTRAL = 1450; 
+    static const bool WHEEL_REVERSE_STEERING = true;
+    static const int WHEEL_LEFT_TURN_LIMIT = 1000;
+    static const int WHEEL_CENTER = 1450;
+    static const int WHEEL_RIGHT_TURN_LIMIT = 2000;   
+    static const int FIRST_GEAR_FORWARD_LIMIT_PERCENT = 15; 
+    static const int SECOND_GEAR_FORWARD_LIMIT_PERCENT = 50;
+    static const int THIRD_GEAR_FORWARD_LIMIT_PERCENT = 70; 
+    static const int FOURTH_GEAR_FORWARD_LIMIT_PERCENT = 100;
+    static const int FIRST_GEAR_REVERSE_LIMIT_PERCENT = 30; 
+    static const int SECOND_GEAR_REVERSE_LIMIT_PERCENT = 50;
+    static const int THIRD_GEAR_REVERSE_LIMIT_PERCENT = 70; 
+    static const int FOURTH_GEAR_REVERSE_LIMIT_PERCENT = 100;
+#endif
 #ifdef CAR_MICRO_TRUGGY  //the following are examples values for different cars
     static const int NUM_CHANNELS = 6;
     static const int PPM_THROTTLE_NEUTRAL = 1470; 
+    static const bool WHEEL_REVERSE_STEERING = false;
     static const int WHEEL_LEFT_TURN_LIMIT = 1080;
     static const int WHEEL_CENTER = 1500;
     static const int WHEEL_RIGHT_TURN_LIMIT = 1920; 
@@ -77,21 +111,6 @@ class BtnPPMMap
     static const int FIRST_GEAR_REVERSE_LIMIT_PERCENT = 30; 
     static const int SECOND_GEAR_REVERSE_LIMIT_PERCENT = 50;
     static const int THIRD_GEAR_REVERSE_LIMIT_PERCENT = 70; 
-    static const int FOURTH_GEAR_REVERSE_LIMIT_PERCENT = 100;
-#endif
-#ifdef CAR_MICRO_T 
-    static const int NUM_CHANNELS = 8;
-    static const int PPM_THROTTLE_NEUTRAL = 1475; 
-    static const int WHEEL_LEFT_TURN_LIMIT = 1100;
-    static const int WHEEL_CENTER = 1390;
-    static const int WHEEL_RIGHT_TURN_LIMIT = 1800;;    
-    static const int FIRST_GEAR_FORWARD_LIMIT_PERCENT = 10; 
-    static const int SECOND_GEAR_FORWARD_LIMIT_PERCENT = 50;
-    static const int THIRD_GEAR_FORWARD_LIMIT_PERCENT = 100; 
-    static const int FOURTH_GEAR_FORWARD_LIMIT_PERCENT = 100;
-    static const int FIRST_GEAR_REVERSE_LIMIT_PERCENT = 30; 
-    static const int SECOND_GEAR_REVERSE_LIMIT_PERCENT = 50;
-    static const int THIRD_GEAR_REVERSE_LIMIT_PERCENT = 100; 
     static const int FOURTH_GEAR_REVERSE_LIMIT_PERCENT = 100;
 #endif
 
@@ -107,6 +126,7 @@ class BtnPPMMap
     static const int FOURTH_GEAR_REVERSE_LIMIT = (PPM_THROTTLE_NEUTRAL-((FOURTH_GEAR_REVERSE_LIMIT_PERCENT/100.0)*PPM_THROTTLE_REVERSE_RANGE)); 
     int GEAR_FORWARD_LIMIT[NUM_GEARS] = {FIRST_GEAR_FORWARD_LIMIT,SECOND_GEAR_FORWARD_LIMIT,THIRD_GEAR_FORWARD_LIMIT,FOURTH_GEAR_FORWARD_LIMIT};
     int GEAR_REVERSE_LIMIT[NUM_GEARS] = {FIRST_GEAR_REVERSE_LIMIT,SECOND_GEAR_REVERSE_LIMIT,THIRD_GEAR_REVERSE_LIMIT,FOURTH_GEAR_REVERSE_LIMIT};
+
     unsigned long lastShiftUpMillis;
     unsigned long lastShiftDownMillis;
     

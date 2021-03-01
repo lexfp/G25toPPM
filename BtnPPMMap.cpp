@@ -22,14 +22,14 @@ BtnPPMMap::BtnPPMMap()
 }
 
 int BtnPPMMap::getNumChannels() {
-  return NUM_CHANNELS;  
+  return NUM_CHANNELS;
 }
 
 int BtnPPMMap::getChannelValue(int c) {
   return channel[c];
 }
 
-void BtnPPMMap::mapGas(uint32_t value) {  
+void BtnPPMMap::mapGas(uint32_t value) {
   if (value < MAX_GAS_INPUT) {
     //stepping on break
     mapBreakValue(value);
@@ -37,10 +37,10 @@ void BtnPPMMap::mapGas(uint32_t value) {
     //stepping on gas
     mapGasValue(value);
   }
-  
+
 }
 
-void BtnPPMMap::mapShift(long value){
+void BtnPPMMap::mapShift(long value) {
   //shift up and down for gears
   if (value == SHIFT_UP_INPUT) {
     shiftUp();
@@ -49,13 +49,23 @@ void BtnPPMMap::mapShift(long value){
   }
 }
 
-void BtnPPMMap::mapSteer(long value){
+void BtnPPMMap::mapSteer(long value) {
   if (value < WHEEL_CENTER_INPUT) {
     //turning left
-    mapChannelValue(false, CH_STEERING, value, WHEEL_MIN_INPUT, WHEEL_CENTER_INPUT, WHEEL_LEFT_TURN_LIMIT, WHEEL_CENTER);
+    if (WHEEL_REVERSE_STEERING) {
+      //reverse steering
+      mapChannelValue(true, CH_STEERING, value, WHEEL_MIN_INPUT, WHEEL_CENTER_INPUT, WHEEL_CENTER, WHEEL_RIGHT_TURN_LIMIT);
+    } else {
+      mapChannelValue(false, CH_STEERING, value, WHEEL_MIN_INPUT, WHEEL_CENTER_INPUT, WHEEL_LEFT_TURN_LIMIT, WHEEL_CENTER);
+    }
   } else {
     //turning right
-    mapChannelValue(false, CH_STEERING, value, WHEEL_CENTER_INPUT, WHEEL_MAX_INPUT, WHEEL_CENTER, WHEEL_RIGHT_TURN_LIMIT);
+    if (WHEEL_REVERSE_STEERING) {
+      //reverse steering
+      mapChannelValue(true, CH_STEERING, value, WHEEL_CENTER_INPUT, WHEEL_MAX_INPUT, WHEEL_LEFT_TURN_LIMIT, WHEEL_CENTER);
+    } else {
+      mapChannelValue(false, CH_STEERING, value, WHEEL_CENTER_INPUT, WHEEL_MAX_INPUT, WHEEL_CENTER, WHEEL_RIGHT_TURN_LIMIT);
+    }
   }
 }
 
@@ -92,7 +102,7 @@ void BtnPPMMap::disArm() {
 
 void BtnPPMMap::shiftUp() {
   if (millis() - lastShiftUpMillis > DELAY_BETWEEN_SHIFT_MILLIS) {
-    if (currentGear < NUM_GEARS-1) {
+    if (currentGear < NUM_GEARS - 1) {
       currentGear++;
     }
     PPM_THROTTLE_MAX = GEAR_FORWARD_LIMIT[currentGear];
@@ -122,7 +132,7 @@ void BtnPPMMap::debug()
   Serial.print(PPM_THROTTLE_MAX);
   Serial.print(" RM:");
   Serial.print(PPM_REVERSE_MAX);
-  
+
   Serial.print(" -a:");
   Serial.print(GEAR_REVERSE_LIMIT[0]);
   Serial.print(" -b:");
@@ -131,6 +141,6 @@ void BtnPPMMap::debug()
   Serial.print(GEAR_REVERSE_LIMIT[2]);
   Serial.print(" -d:");
   Serial.print(GEAR_REVERSE_LIMIT[3]);
-  
+
   Serial.println("");
 }
