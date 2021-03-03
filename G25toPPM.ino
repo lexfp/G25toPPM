@@ -20,7 +20,9 @@
 #define FRAME_LENGTH 22500  //set the PPM frame length in microseconds (1ms = 1000µs)
 #define PULSE_LENGTH 300  //set the pulse length
 #define onState 1  //set polarity of the pulses: 1 is positive, 0 is negative
-#define sigPin 3  //set PPM signal output pin on the arduino
+#define PPM_PIN 3  //set PPM signal output pin on the arduino
+#define INPUT1 6 //pin for switch 0
+#define INPUT2 7 //pin for switch 1
 
 BtnPPMMap btnPPMMap;
 
@@ -84,20 +86,18 @@ void JoystickEvents::disconnectJoystick()
 
 void JoystickEvents::OnGamePadChanged(const GamePadEventData *evt)
 {
-  
-    Serial.print("W: ");
-    Serial.print(evt->wheel, DEC);
-    Serial.print("S: ");
-    Serial.print(evt->shift, DEC);
-    Serial.print("T: ");
-    Serial.print(evt->gas, DEC);
-    Serial.println();
-  
+  Serial.print("IN - T:");
+  Serial.print(evt->gas, DEC);
+  Serial.print(" W:");
+  Serial.print(evt->wheel, DEC);
+  Serial.print(" S:");
+  Serial.print(evt->shift, DEC);
+  Serial.println();
+
   btnPPMMap->mapShift(evt->shift);
   btnPPMMap->mapGas(evt->gas);
   btnPPMMap->mapSteer(evt->wheel);
   btnPPMMap->debug();
-
 }
 
 USB                                             Usb;
@@ -123,8 +123,22 @@ void setup()
   if (!Hid.SetReportParser(0, &Joy))
     ErrorMessage<uint8_t>(PSTR("SetReportParser"), 1  );
 
-  pinMode(sigPin, OUTPUT);
-  digitalWrite(sigPin, !onState);  //set the PPM signal pin to the default state (off)
+  pinMode(PPM_PIN, OUTPUT);
+  digitalWrite(PPM_PIN, !onState);  //set the PPM signal pin to the default state (off)
+
+  //set up switches for car selection
+  pinMode( INPUT1, INPUT_PULLUP );
+  pinMode( INPUT2, INPUT_PULLUP );
+
+  //select the car
+  if (digitalRead( INPUT1 ) == 0) {
+    btnPPMMap.changeCar(CAR_MICRO_T);
+  } else if (digitalRead( INPUT2 ) == 0) {
+    btnPPMMap.changeCar(CAR_MICRO_TRUGGY);
+  } else {
+    //default if switches are not wired
+    btnPPMMap.changeCar(CAR_MINI_Q5);
+  }
 
   cli();
   TCCR1A = 0; // set entire TCCR1 register to 0
@@ -138,7 +152,7 @@ void setup()
 }
 
 void loop()
-{
+{ 
   Usb.Task();
   if (Usb.getUsbTaskState() != USB_STATE_RUNNING)
   {
@@ -154,7 +168,7 @@ ISR(TIMER1_COMPA_vect) { //leave this alone
   TCNT1 = 0;
 
   if (state) {  //start pulse
-    digitalWrite(sigPin, onState);
+    digitalWrite(PPM_PIN, onState);
     OCR1A = PULSE_LENGTH * 2;
     state = false;
   } else { //end pulse and calculate when to start the next pulse
@@ -162,7 +176,7 @@ ISR(TIMER1_COMPA_vect) { //leave this alone
     int channelValue;
     static unsigned int calc_rest;
 
-    digitalWrite(sigPin, !onState);
+    digitalWrite(PPM_PIN, !onState);
     state = true;
 
     if (cur_chan_numb >= btnPPMMap.getNumChannels()) {
