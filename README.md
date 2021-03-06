@@ -44,7 +44,7 @@ WHEEL_LEFT/RIGHT_TURN_LIMIT - On some cars, the servos can turn further than the
 
 GEAR_FORWARD & REVERSE_LIMITs - the gears are used as a sort of throttle limit. Each gear will limit the max throttle to the desired range. If you don't have a shifter, just set the all the limit values to the desired throttle cap you wish to use (100 if you don't want a cap). The values are in percentages. 5 would be 5%, 10 is 10%, 100 is 100% etc... When in first gear, then the limits for first gear would apply for both throttle and reverse. You do not have to shift to first gear before going into reverse since the break always works as a reverse pedal as well.   
 
-If you wired in a switch, you can optionally modify the code in the setup() method of G25toPPM.ino to map your switch to the car selected. You can also modify the different car settings in each of the cars in the changeCar method you previously modified above.  
+If you wired in a switch, you can optionally modify the code in the setup() method of G25toPPM.ino to map your switch to the car selected. You can also modify the different car settings in each of the cars in the changeCar method you previously modified above. In order to switch cars, you'll need to change the switch and then press the reset button on the arduino(or disconnect and reconnect the battery) since car selection is only done once when the arduino starts up to make the code more efficient.
 
 ## Transmitter Modules
 The modules linked below should work, but in general, if you can operate the module in opentx with PPM mode, it should work. I tested with the module in the first link and also the crossfire module.  
