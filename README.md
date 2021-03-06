@@ -25,10 +25,11 @@ Contrary to the article, these boards are not defective, but rather they just do
 
 ## Wiring
 See wiring.jpg image in codebase.  
-With the module lights and dials facing you and the antenna facing up, you will find 5 pins on the bottom right. The top pin on the module will go to pin 3 on your arduino board (you can change that in the code). Pins 3 on the module is for your battery + and pin 4 is ground. I wired them directly to my arduino battery terminal so that everything is powered once I power on the arduino. I believe that they can both take 3s although I've opted to use 2s. You can disregard the other pins.
+With the module lights and dials facing you and the antenna facing up, you will find 5 pins on the bottom right. The top pin on the module will go to pin 3 on your arduino board (you can change that in the code). Pins 3 on the module is for your battery + and pin 4 is ground. I wired them directly to my arduino battery terminal so that everything is powered once I power on the arduino. I believe that they can both take 3s although I've opted to use 2s. You can disregard the other pins.  
+Optional: The code now supports a 3 position switch which supports 3 different models. The negative (usually center) terminal goes to any ground on the arduino. Then you can wire the 2 remaining terminals to pins 6 & 7. It doesn't matter which goes to which. If the switch is not wired in, it will just always choose the first car (currently CAR_MICRO_T).  
 
 ## Configuration
-The only things that are being used by default are the gas & break pedal along with the steering wheel and shifter. The break pedal works similar to pushing up on the throttle in pistol style transmitter (as both a break and reverse). The gas and break both map to the throttle channel similar to a real transmitter. The values you will most likely need to modify in the code are (in BtnPPMMap.h):  
+The only things that are being used by default are the gas & break pedal along with the steering wheel and shifter. The break pedal works similar to pushing up on the throttle in pistol style transmitter (as both a break and reverse). The gas and break both map to the throttle channel similar to a real transmitter. The values you will most likely need to modify in the code are (in BtnPPMMap.cpp's changeCar method). There are multiple cars set up currently. If you don't want to change any other code, modify the settings for car CAR_MICRO_T as that is the one being selected by default (even if no switch is wired in).    
 
 NUM_CHANNELS - number of channels on your RX.   
 The code can also accept input from the shifter (only up and downshift though, not the gears), but doesn't use that functionality at the moment.   
@@ -41,7 +42,9 @@ WHEEL_CENTER - this is for trimming the center of your steering. Values are PPM 
 
 WHEEL_LEFT/RIGHT_TURN_LIMIT - On some cars, the servos can turn further than the wheels can, which can cause them to wear out faster. You can adjust these values here. Values are actual PPM values being sent to the receiver (1000-2000).  
 
-GEAR_FORWARD & REVERSE_LIMITs - the gears are used as a sort of throttle limit. Each gear will limit the max throttle to the desired range. If you don't have a shifter, just set the all the limit values to the desired throttle cap you wish to use (100 if you don't want a cap). The values are in percentages. 5 would be 5%, 10 is 10%, 100 is 100% etc... When in first gear, then the limits for first gear would apply for both throttle and reverse. You do not have to shift to first gear before going into reverse since the break always works as a reverse pedal as well.  
+GEAR_FORWARD & REVERSE_LIMITs - the gears are used as a sort of throttle limit. Each gear will limit the max throttle to the desired range. If you don't have a shifter, just set the all the limit values to the desired throttle cap you wish to use (100 if you don't want a cap). The values are in percentages. 5 would be 5%, 10 is 10%, 100 is 100% etc... When in first gear, then the limits for first gear would apply for both throttle and reverse. You do not have to shift to first gear before going into reverse since the break always works as a reverse pedal as well.   
+
+If you wired in a switch, you can optionally modify the code in the setup() method of G25toPPM.ino to map your switch to the car selected. You can also modify the different car settings in each of the cars in the changeCar method you previously modified above.  
 
 ## Transmitter Modules
 The modules linked below should work, but in general, if you can operate the module in opentx with PPM mode, it should work. I tested with the module in the first link and also the crossfire module.  
