@@ -11,7 +11,7 @@ BtnPPMMap::BtnPPMMap()
   lastShiftDownMillis = millis();
   channel[CH_THROTTLE] = PPM_THROTTLE_NEUTRAL;
   channel[CH_STEERING] = WHEEL_CENTER;
-  channel[CH_3] = PPM_FAIL_SAFE_VALUE;
+  channel[CH_CAMERA] = CAMERA_CENTER;
   channel[CH_4] = PPM_FAIL_SAFE_VALUE;
   channel[CH_5] = PPM_FAIL_SAFE_VALUE;
   channel[CH_6] = PPM_FAIL_SAFE_VALUE;
@@ -64,8 +64,12 @@ void BtnPPMMap::changeCar(int car) {
     PPM_THROTTLE_NEUTRAL = 1450;
     WHEEL_REVERSE_STEERING = true;
     WHEEL_LEFT_TURN_LIMIT = 1000;
-    WHEEL_CENTER = 1450;
-    WHEEL_RIGHT_TURN_LIMIT = 2000;
+    WHEEL_CENTER = 1410;
+    WHEEL_RIGHT_TURN_LIMIT = 2000; 
+    CAMERA_REVERSE = false;
+    CAMERA_LEFT_TURN_LIMIT = 1100;
+    CAMERA_CENTER = 1650;
+    CAMERA_RIGHT_TURN_LIMIT = 1900;
     FIRST_GEAR_FORWARD_LIMIT_PERCENT = 15;
     SECOND_GEAR_FORWARD_LIMIT_PERCENT = 50;
     THIRD_GEAR_FORWARD_LIMIT_PERCENT = 70;
@@ -143,6 +147,11 @@ void BtnPPMMap::mapSteer(long value) {
     } else {
       mapChannelValue(false, CH_STEERING, value, WHEEL_MIN_INPUT, WHEEL_CENTER_INPUT, WHEEL_LEFT_TURN_LIMIT, WHEEL_CENTER);
     }
+    if (CAMERA_REVERSE) {
+      mapChannelValue(true, CH_CAMERA, value, WHEEL_MIN_INPUT, WHEEL_CENTER_INPUT, CAMERA_CENTER, CAMERA_RIGHT_TURN_LIMIT);
+    } else {
+      mapChannelValue(false, CH_CAMERA, value, WHEEL_MIN_INPUT, WHEEL_CENTER_INPUT, CAMERA_LEFT_TURN_LIMIT, CAMERA_CENTER);
+    }
   } else {
     //turning right
     if (WHEEL_REVERSE_STEERING) {
@@ -151,8 +160,14 @@ void BtnPPMMap::mapSteer(long value) {
     } else {
       mapChannelValue(false, CH_STEERING, value, WHEEL_CENTER_INPUT, WHEEL_MAX_INPUT, WHEEL_CENTER, WHEEL_RIGHT_TURN_LIMIT);
     }
+    if (CAMERA_REVERSE) {
+      mapChannelValue(true, CH_CAMERA, value, WHEEL_CENTER_INPUT, WHEEL_MAX_INPUT, CAMERA_LEFT_TURN_LIMIT, CAMERA_CENTER);
+    } else {
+      mapChannelValue(false, CH_CAMERA, value, WHEEL_CENTER_INPUT, WHEEL_MAX_INPUT, CAMERA_CENTER, CAMERA_RIGHT_TURN_LIMIT);
+    }
   }
 }
+
 
 void BtnPPMMap::mapGasValue(uint32_t value) {
   mapChannelValue(true, CH_THROTTLE, value, MAX_GAS_INPUT, NEUTRAL_GAS_INPUT, PPM_THROTTLE_NEUTRAL, PPM_THROTTLE_MAX);
@@ -213,6 +228,8 @@ void BtnPPMMap::debug()
   Serial.print(channel[CH_THROTTLE]);
   Serial.print(" W:");
   Serial.print(channel[CH_STEERING]);
+  Serial.print(" C:");
+  Serial.print(channel[CH_CAMERA]);
   Serial.print(" FM:");
   Serial.print(PPM_THROTTLE_MAX);
   Serial.print(" RM:");

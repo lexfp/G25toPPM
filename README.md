@@ -29,7 +29,8 @@ With the module lights and dials facing you and the antenna facing up, you will 
 Optional: The code now supports a 3 position switch which supports 3 different models. The negative (usually center) terminal goes to any ground on the arduino. Then you can wire the 2 remaining terminals to pins 6 & 7. It doesn't matter which goes to which. If the switch is not wired in, it will just always choose the first car (currently CAR_MICRO_T).  
 
 ## Configuration
-The only things that are being used by default are the gas & break pedal along with the steering wheel and shifter. The break pedal works similar to pushing up on the throttle in pistol style transmitter (as both a break and reverse). The gas and break both map to the throttle channel similar to a real transmitter. The values you will most likely need to modify in the code are (in BtnPPMMap.cpp's changeCar method). There are multiple cars set up currently. If you don't want to change any other code, modify the settings for car CAR_MICRO_T as that is the one being selected by default (even if no switch is wired in).    
+The only things that are being used by default are the gas & break pedal along with the steering wheel and shifter. The break pedal works similar to pushing up on the throttle in pistol style transmitter (as both a break and reverse). The gas and break both map to the throttle channel similar to a real transmitter. The values you will most likely need to modify in the code are (in BtnPPMMap.cpp's changeCar method).   
+Optional: There are multiple cars set up currently. If you don't want to change any other code, modify the settings for car CAR_MICRO_T as that is the one being selected by default (even if no switch is wired in). Also, there is an optional camera servo setup for channel 3.     
 
 NUM_CHANNELS - number of channels on your RX.   
 The code can also accept input from the shifter (only up and downshift though, not the gears), but doesn't use that functionality at the moment.   
@@ -43,6 +44,8 @@ WHEEL_CENTER - this is for trimming the center of your steering. Values are PPM 
 WHEEL_LEFT/RIGHT_TURN_LIMIT - On some cars, the servos can turn further than the wheels can, which can cause them to wear out faster. You can adjust these values here. Values are actual PPM values being sent to the receiver (1000-2000).  
 
 GEAR_FORWARD & REVERSE_LIMITs - the gears are used as a sort of throttle limit. Each gear will limit the max throttle to the desired range. If you don't have a shifter, just set the all the limit values to the desired throttle cap you wish to use (100 if you don't want a cap). The values are in percentages. 5 would be 5%, 10 is 10%, 100 is 100% etc... When in first gear, then the limits for first gear would apply for both throttle and reverse. You do not have to shift to first gear before going into reverse since the break always works as a reverse pedal as well.   
+
+CAMERA_YYY_ZZZ - optional configurations for the camera steering servo. I recommend it as it adds another layer of realism. By wiring a servo with a camera on top to channel 3, your steering will also turn the camera as well.
 
 If you wired in a switch, you can optionally modify the code in the setup() method of G25toPPM.ino to map your switch to the car selected. You can also modify the different car settings in each of the cars in the changeCar method you previously modified above. In order to switch cars, you'll need to change the switch and then press the reset button on the arduino(or disconnect and reconnect the battery) since car selection is only done once when the arduino starts up to make the code more efficient.
 

@@ -87,12 +87,12 @@ void JoystickEvents::disconnectJoystick()
 void JoystickEvents::OnGamePadChanged(const GamePadEventData *evt)
 {
   
-    Serial.print("W: ");
-    Serial.print(evt->wheel, DEC);
-    Serial.print("S: ");
-    Serial.print(evt->shift, DEC);
-    Serial.print("T: ");
+    Serial.print("IN - T:");
     Serial.print(evt->gas, DEC);
+    Serial.print(" W:");
+    Serial.print(evt->wheel, DEC);
+    Serial.print(" S:");
+    Serial.print(evt->shift, DEC);
     Serial.println();
   
   btnPPMMap->mapShift(evt->shift);

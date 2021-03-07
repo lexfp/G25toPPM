@@ -33,7 +33,7 @@ class BtnPPMMap
 #define MAX_CHANNELS 8
     static const int CH_THROTTLE = 0;
     static const int CH_STEERING = 1;
-    static const int CH_3 = 2;
+    static const int CH_CAMERA = 2;
     static const int CH_4 = 3;
     static const int CH_5 = 4;
     static const int CH_6 = 5;
@@ -62,6 +62,10 @@ class BtnPPMMap
     int WHEEL_RIGHT_TURN_LIMIT;
     int GEAR_FORWARD_LIMIT[NUM_GEARS];
     int GEAR_REVERSE_LIMIT[NUM_GEARS];
+    bool CAMERA_REVERSE = false;
+    int CAMERA_LEFT_TURN_LIMIT = PPM_MIN_VALUE;
+    int CAMERA_CENTER = PPM_CENTER_VALUE;
+    int CAMERA_RIGHT_TURN_LIMIT = PPM_MAX_VALUE;
 
     unsigned long lastShiftUpMillis;
     unsigned long lastShiftDownMillis;
