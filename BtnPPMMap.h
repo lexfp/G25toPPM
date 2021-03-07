@@ -62,7 +62,7 @@ class BtnPPMMap
     int WHEEL_RIGHT_TURN_LIMIT;
     int GEAR_FORWARD_LIMIT[NUM_GEARS];
     int GEAR_REVERSE_LIMIT[NUM_GEARS];
-    bool CAMERA_REVERSE = false;
+    bool CAMERA_REVERSE = false;  //similar to WHEEL_REVERSE_STEERING, change to true if you need to reverse your camera servo
     int CAMERA_LEFT_TURN_LIMIT = PPM_MIN_VALUE;
     int CAMERA_CENTER = PPM_CENTER_VALUE;
     int CAMERA_RIGHT_TURN_LIMIT = PPM_MAX_VALUE;
